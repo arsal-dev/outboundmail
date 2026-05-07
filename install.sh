@@ -106,7 +106,11 @@ install -m 644 -o root -g root "${PROJECT_ROOT}/plugin/plugin.conf" "${PLUGIN_DI
 
 echo "[5/6] Registering plugin in WHM..."
 /usr/local/cpanel/bin/register_appconfig "${APP_CONF}" || true
-/scripts/rebuild_whmconf || true
+if [[ -x /scripts/rebuild_whmconf ]]; then
+  /scripts/rebuild_whmconf || true
+elif [[ -x /usr/local/cpanel/bin/whostmgr2 ]]; then
+  /usr/local/cpanel/bin/whostmgr2 >/dev/null 2>&1 || true
+fi
 
 echo "[6/6] Install complete."
 echo
