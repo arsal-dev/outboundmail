@@ -23,7 +23,7 @@ Repository: [arsal-dev/outboundmail](https://github.com/arsal-dev/outboundmail)
 - `plugin/` - WHM plugin files (`index.php`, `style.css`, `plugin.conf`)
 - `bin/log_outbound_mail.php` - Exim `transport_filter` logging script
 - `config/outboundmail_db.conf.example` - DB config template
-- `exim/exim_snippet.conf` - router/transport snippet for MailBaby
+- `exim/exim_snippet.conf` - example router/transport snippet for a smart host relay
 - `hooks/postupcp_outboundmail.sh` - optional post-update reinstall hook
 
 ## Quick Install (Production)
@@ -48,12 +48,12 @@ If MySQL root/admin has a password:
 
 1. WHM -> Exim Configuration Manager -> Advanced Editor
 2. Paste the router/transport from `exim/exim_snippet.conf`
-3. Remove old `mailbaby_smarthost` router if present
+3. Remove/disable conflicting old smart host routers if present
 4. Save and restart Exim
 
-## Test-Server Setup (No MailBaby Yet)
+## Test-Server Setup (Direct DNS Delivery)
 
-If you want to test without MailBaby first, add this in Exim Advanced Editor:
+If you want to test first without any external relay, add this in Exim Advanced Editor:
 
 ```exim
 outbound_log_router:
